@@ -1,28 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Map</title>
     <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
     <div class="container">
         <div class="header">
-            <form id="myForm" class="header" >
+            <form id="myForm" class="header">
                 <div>
                     <label for="question">Select option</label>
                     <select id="query" name="query">
-                        <option value="get_avg_deadly_grade_by_region_at_map" selected>get average deadly grade by region</option>
-                        <option value="calculate_yearly_attack_percentage_change_by_region_at_map">calculate yearly attack percentage change by region</option>
-                        <option value="get_sum_events_by_group_at_region_or_all_regions_at_map">get sum events by group at region or all regions</option>
+                        <option value="" selected disabled>select option...</option>
+                        <option value="get_avg_deadly_grade_by_region_at_map">get average deadly grade by
+                            region</option>
+                        <option value="calculate_yearly_attack_percentage_change_by_region_at_map">calculate yearly
+                            attack percentage change by region</option>
+                        <option value="get_sum_events_by_group_at_region_or_all_regions_at_map">get sum events by group
+                            at region or all regions</option>
                         <option value="get_groups_with_shared_targets_at_map">get groups with shared targets</option>
-                        <option value="get_number_of_unique_group_by_country_or_region_at_map">get number of unique group by country or region</option>
-                        <option value="get_groups_with_shared_attack_strategies_at_map">get groups with shared attack strategies</option>
+                        <option value="get_number_of_unique_group_by_country_or_region_at_map">get number of unique
+                            group by country or region</option>
+                        <option value="get_groups_with_shared_attack_strategies_at_map">get groups with shared attack
+                            strategies</option>
                         <option value="get_attack_type_sort_by_most_deadly">get attack type sort by most deadly</option>
-                        <option value="get_five_groups_with_the_biggest_casualties">get five groups with the biggest casualties</option>
-                        <option value="find_groups_with_shared_targets_in_same_year">find groups with shared targets in same year</option>
-                        <option value="find_groups_with_repeated_attacks_on_same_target_types">find groups with repeated attacks on same target types</option>
+                        <option value="get_five_groups_with_the_biggest_casualties">get five groups with the biggest
+                            casualties</option>
+                        <option value="find_groups_with_shared_targets_in_same_year">find groups with shared targets in
+                            same year</option>
+                        <option value="find_groups_with_repeated_attacks_on_same_target_types">find groups with repeated
+                            attacks on same target types</option>
                         <option value="search/keywords">search keywords in all attacks</option>
                         <option value="search/news">search keywords in live news attacks</option>
                         <option value="search/historic">search keywords in historical news attacks</option>
@@ -40,7 +51,7 @@
                     </div>
 
                     <div class="form_values" id="map-container">
-                        <select id="map-index"  class="form-value">
+                        <select id="map-index" class="form-value">
                             <option value="" selected disabled>select region or country...</option>
                             <option value="region">region</option>
                             <option value="country">country</option>
@@ -76,29 +87,7 @@
             <div class="map-placeholder">Map will be displayed here...</div>
         </div>
     </div>
+    <script src="./index.js"></script>
 </body>
-<script>
-    async function submitForm() {
-        const selectedQuestion = document.getElementById('question').value;
-        const selectedRadio = document.querySelector('input[name="fav_language"]:checked');
-        const radioValue = selectedRadio ? selectedRadio.value : null;
 
-        const mapArea = document.getElementById("map");
-        mapArea.innerHTML = "<div class='map-placeholder'>Loading...</div>";
-
-        try {
-            const response = await fetch("http://localhost:5000/api/get_sum_events_by_group_at_region_or_all_regions");
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            const data = await response.json();
-            mapArea.innerHTML = data.html; // Ensure your API returns an `html` key with valid HTML content
-        } catch (error) {
-            console.error("Error fetching data:", error);
-            mapArea.innerHTML = "<div class='map-placeholder'>Failed to load map. Please try again later.</div>";
-        }
-    }
-</script>
-<script src="./index.js"></script>
 </html>
-
